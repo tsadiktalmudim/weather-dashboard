@@ -15,7 +15,7 @@ $('.recentSearch').on('click', 'button', function(event) {
     getCityLatLon(clickedInput);
 });
 
-// use old OneCall API to get latitude/longitude of user inputted city
+// fetch OneCall to get 
 var getCityLatLon = function(city) {
     var apiUrl = 'https://api.openweathermap.org/data/2.5/weather?q=' + city + '&appid=' + apiKey + '&units=imperial';
     fetch(apiUrl).then(function(response) {
@@ -25,8 +25,8 @@ var getCityLatLon = function(city) {
                 var lon = data.coord.lon;
                 console.log(data);
                 // take data.name (capitalized city name) set to localStorage 
-                var location = data.name
-                localStorage.setItem(location, location)
+                var location = data.name;
+                localStorage.setItem(location, location);
 
 
                 var date = new Date(data.dt * 1000).toLocaleDateString("en-US");
@@ -58,22 +58,43 @@ var getCityWeather = function(lat, lon) {
                     // add background colors to UV index text 
                     if (data.daily[0].uvi >= 0 && data.daily[0].uvi < 3) {
                         $('.cityBox #uv-index').addClass("low");
+                        $('.cityBox #uv-index').removeClass("danger");
+                        $('.cityBox #uv-index').removeClass("moderate");
+                        $('.cityBox #uv-index').removeClass("high");
+                        $('.cityBox #uv-index').removeClass("very-high");
                     } else if (data.daily[0].uvi >= 3 && data.daily[0].uvi < 6) {
                         $('.cityBox #uv-index').addClass("moderate");
+                        $('.cityBox #uv-index').removeClass("low");
+                        $('.cityBox #uv-index').removeClass("danger");
+                        $('.cityBox #uv-index').removeClass("high");
+                        $('.cityBox #uv-index').removeClass("very-high");
                     } else if (data.daily[0].uvi >= 6 && data.daily[0].uvi < 8) {
                         $('.cityBox #uv-index').addClass("high");
+                        $('.cityBox #uv-index').removeClass("low");
+                        $('.cityBox #uv-index').removeClass("moderate");
+                        $('.cityBox #uv-index').removeClass("danger");
+                        $('.cityBox #uv-index').removeClass("very-high");
                     } else if (data.daily[0].uvi >= 8 && data.daily[0].uvi < 10) {
-                        $('.cityBox #uv-index').addClass("veryhigh");
+                        $('.cityBox #uv-index').addClass("very-high");
+                        $('.cityBox #uv-index').removeClass("low");
+                        $('.cityBox #uv-index').removeClass("moderate");
+                        $('.cityBox #uv-index').removeClass("high");
+                        $('.cityBox #uv-index').removeClass("danger");
                     } else {
-                        $('.cityBox #uv-index').addClass("extreme");
+                        $('.cityBox #uv-index').addClass("danger");
+                        $('.cityBox #uv-index').removeClass("low");
+                        $('.cityBox #uv-index').removeClass("moderate");
+                        $('.cityBox #uv-index').removeClass("high");
+                        $('.cityBox #uv-index').removeClass("very-high");
                     }
 
                     // dynamically update 5-day forecast container
                     for (var i = 0; i < data.daily.length; i++) {
                         var date = new Date(data.daily[i].dt * 1000).toLocaleDateString("en-US");
                         $('.date').eq(i).text(date);
-                        $('.wicon').eq(i).attr('src', 'http://openweathermap.org/img/wn/' + data.daily[i].weather[0].icon + '.png');
-                        $('.forecast .temp').eq(i).text('Temp: ' + data.daily[i].temp.day);
+                        $('.weatherImage').eq(i).attr('src', 'http://openweathermap.org/img/wn/' + data.daily[i].weather[0].icon + '.png');
+                        $('.forecast .tempHi').eq(i).text('High Temp ' + data.daily[i].temp.max);
+                        $('.forecast .tempLo').eq(i).text('Low Temp: ' + data.daily[i].temp.min);
                         $('.forecast .wind').eq(i).text('Wind: ' + data.daily[i].wind_speed + ' MPH');
                         $('.forecast .humidity').eq(i).text('Humidity: ' + data.daily[0].humidity + '%');
                     }
@@ -89,10 +110,10 @@ var getCityWeather = function(lat, lon) {
 function getSavedSearches() {
     for (var i = 0; i < localStorage.length; i++) {
         var recentBtn = document.createElement('button');
-        var recentCont = document.querySelector('.recentsearch');
+        var recentCont = document.querySelector('.recentSearch');
         recentBtn.innerHTML = localStorage.key(i);
         recentCont.appendChild(recentBtn);
-        recentBtn.classList.add('savedbtn');
+        recentBtn.classList.add('w3-button', 'w3-gray', 'w3-round', 'savedButton');
     }
 }
 getSavedSearches();
