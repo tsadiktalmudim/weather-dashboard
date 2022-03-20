@@ -13,4 +13,4 @@ https://github.com/tsadiktalmudim/weather-dashboard
 Paul Soliz, https://github.com/ModiFir3 | Jamel James, https://github.com/jrj-sys
 
 ## Screenshot
-![Weather Dashboard](https://user-images.githubusercontent.com/97198974/159150190-bce2e2e2-b6ec-417b-a3b6-04717fe07596.png)
+![Weather Dashboard (1)](https://user-images.githubusercontent.com/97198974/159150929-d37850e2-e2ce-462f-b9d0-fc51d7cdb8d6.png)
