@@ -1,22 +1,23 @@
 var apiKey = "6f4f91c271395dfd7ae754eeb0670627"
 
+// add event listener for the search button
 $('.submit').on("click", function() {
     var location = $('.searchBox').val();
     if (location) {
-        getCityLatLon(location)
+        getCoord(location)
     } else {
         alert("Please enter a city name!");
     };
 });
 
-// call getCityLatLon to request weather for user saved search
+// call getCityLatLon to get coordinates for search history
 $('.recentSearch').on('click', 'button', function(event) {
     var clickedInput = event.target.innerHTML
-    getCityLatLon(clickedInput);
+    getCoord(clickedInput);
 });
 
 // fetch OneCall to get 
-var getCityLatLon = function(city) {
+var getCoord = function(city) {
     var apiUrl = 'https://api.openweathermap.org/data/2.5/weather?q=' + city + '&appid=' + apiKey + '&units=imperial';
     fetch(apiUrl).then(function(response) {
         if (response.ok) {
@@ -38,7 +39,7 @@ var getCityLatLon = function(city) {
                 $('.cityBox .humidity').text('Humidity: ' + data.main.humidity + '%');
 
 
-                getCityWeather(lat, lon);
+                getWeather(lat, lon);
             })
         } else {
             alert("Error: " + response.statusText);
@@ -47,7 +48,7 @@ var getCityLatLon = function(city) {
 }
 
 // use getCityLatLon latitude and longitude values to input into OneCall API 
-var getCityWeather = function(lat, lon) {
+var getWeather = function(lat, lon) {
     var apiUrl = 'https://api.openweathermap.org/data/2.5/onecall?lat=' + lat + '&lon=' + lon + '&appid=' + apiKey + '&units=imperial';
     fetch(apiUrl).then(function(response) {
         // request was successful 
