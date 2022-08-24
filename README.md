@@ -1,7 +1,7 @@
 # weather-dashboard
 
 ## Purpose
-This website is a weather app that can be used to keep track of current weather data, future weather data and can also keep track of favorite places by way of having a search history that updates with dynamically genereated buttons on refresh of the page.
+This website is a weather app that can be used to keep track of current weather data, future weather data and can also keep track of favorite places by way of having a search history that updates with dynamically generated buttons on refresh of the page.
 
 ## Deployement URL
 https://tsadiktalmudim.github.io/weather-dashboard/
